@@ -5,19 +5,20 @@ PKG=$(awk -F '=' '/^pkgname=/{ print $2 }' PKGBUILD)
 
 # Get latest version
 VER=$(git ls-remote --tags --sort -v:refname https://github.com/mvdan/gofumpt.git |
-	head -n1 |
-	grep -Eo '[0-9.]+$')
+  grep -E '/tags/v[0-9.]+$' |
+  head -n1 |
+  grep -Eo '[0-9.]+$')
 
 # Insert latest version into PKGBUILD and update hashes
 sed -i \
-	-e "s/^pkgver=.*/pkgver=${VER}/" \
-	-e 's/pkgrel=.*/pkgrel=1/' \
-	PKGBUILD
+  -e "s/^pkgver=.*/pkgver=${VER}/" \
+  -e 's/pkgrel=.*/pkgrel=1/' \
+  PKGBUILD
 
 # Check whether this changed anything
 if (git diff --exit-code PKGBUILD); then
-	echo "Package ${PKG} has most recent version ${VER}"
-	exit 0
+  echo "Package ${PKG} has most recent version ${VER}"
+  exit 0
 fi
 
 updpkgsums
