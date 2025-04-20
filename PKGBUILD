@@ -1,7 +1,7 @@
 # Maintainer: Knut Ahlers <knut at ahlers dot me>
 
 pkgname=gofumpt
-pkgver=0.8.0
+pkgver=0.8.0 # renovate: depName=mvdan/gofumpt datasource=github-releases
 pkgrel=1
 pkgdesc="A stricter gofmt"
 arch=('i686' 'x86_64')
